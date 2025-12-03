@@ -53,10 +53,11 @@ export function ProcedureForm({
   const [queryEnabled, setQueryEnabled] = useState<boolean>(false);
   const [queryInput, setQueryInput] = useState<any>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
-  const context = trpc.useContext();
+// @ts-ignore
+  const context = trpc.useUtils();
 
   function getProcedure() {
-    var cur: typeof trpc | typeof trpc[string] = trpc;
+    var cur: any = trpc;
     for (var p of procedure.pathFromRootRouter) {
       // TODO - Maybe figure out these typings?
       //@ts-ignore
@@ -97,7 +98,7 @@ export function ProcedureForm({
     reset: resetForm,
     handleSubmit,
   } = useForm({
-    resolver: ajvResolver(wrapJsonSchema(procedure.inputSchema as any), {
+    resolver: ajvResolver(wrapJsonSchema(procedure.inputSchema as any) as any, {
       formats: fullFormats,
     }),
     defaultValues: {
@@ -191,7 +192,7 @@ export function ProcedureForm({
               <ProcedureFormButton
                 text={`Execute ${name}`}
                 colorScheme={"neutral"}
-                loading={query.fetchStatus === "fetching" || mutation.isLoading}
+                loading={query.fetchStatus === "fetching" || mutation.isPending}
               />
             </FormSection>
           </div>

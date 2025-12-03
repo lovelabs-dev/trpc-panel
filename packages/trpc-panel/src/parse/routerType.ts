@@ -10,14 +10,20 @@ export function isZodObject(
 }
 
 const SharedProcedureDefPropertiesSchema = z.object({
-  inputs: z.unknown().array(),
+  inputs: z.unknown().array().optional(),
+  input: z.unknown().optional(),
   meta: TRPCPanelMetaSchema.optional(),
 });
 
-const QueryDefSchema = SharedProcedureDefPropertiesSchema.merge(
-  z.object({
-    query: z.literal(true),
-  })
+const QueryDefSchema = SharedProcedureDefPropertiesSchema.and(
+  z.union([
+    z.object({
+      query: z.literal(true),
+    }),
+    z.object({
+      type: z.literal("query"),
+    }),
+  ])
 );
 
 export function isQueryDef(obj: unknown): obj is QueryDef {
@@ -26,10 +32,15 @@ export function isQueryDef(obj: unknown): obj is QueryDef {
 
 type QueryDef = z.infer<typeof QueryDefSchema>;
 
-const MutationDefSchema = SharedProcedureDefPropertiesSchema.merge(
-  z.object({
-    mutation: z.literal(true),
-  })
+const MutationDefSchema = SharedProcedureDefPropertiesSchema.and(
+  z.union([
+    z.object({
+      mutation: z.literal(true),
+    }),
+    z.object({
+      type: z.literal("mutation"),
+    }),
+  ])
 );
 
 export function isMutationDef(obj: unknown): obj is MutationDef {
@@ -38,10 +49,15 @@ export function isMutationDef(obj: unknown): obj is MutationDef {
 
 export type MutationDef = z.infer<typeof MutationDefSchema>;
 
-const SubscriptionDefSchema = SharedProcedureDefPropertiesSchema.merge(
+const SubscriptionDefSchema = SharedProcedureDefPropertiesSchema.and(
+  z.union([
     z.object({
-        subscription: z.literal(true),
-    })
+      subscription: z.literal(true),
+    }),
+    z.object({
+      type: z.literal("subscription"),
+    }),
+  ])
 );
 
 type SubscriptionDef = z.infer<typeof SubscriptionDefSchema>;
@@ -60,7 +76,13 @@ export type ProcedureDefSharedProperties = z.infer<
 
 // Don't export this b/c it's just used to type check, use the is functions
 const RouterDefSchema = z.object({
-  router: z.literal(true),
+  router: z.literal(true).optional(),
+  type: z.undefined(),
+  query: z.undefined(),
+  mutation: z.undefined(),
+  subscription: z.undefined(),
+  inputs: z.undefined(),
+  input: z.undefined(),
 });
 
 export type RouterDef = {

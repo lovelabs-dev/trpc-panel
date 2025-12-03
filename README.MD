@@ -134,7 +134,7 @@ app.use("/panel", (_, res) => {
 
 ## Limitations
 
-Currently, tRPC panel only supports tRPC v10 and only works with zod input schemas. With it's current design it would be feasible to easily add support for other input types as well
+Currently, tRPC panel supports tRPC v10 and v11 and only works with zod input schemas. With it's current design it would be feasible to easily add support for other input types as well
 
 There are no plans to support v9 or other previous tRPC versions.
 

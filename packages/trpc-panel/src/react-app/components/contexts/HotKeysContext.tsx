@@ -42,10 +42,10 @@ export function HotKeysContextProvider({ children }: { children: ReactNode }) {
     <HotKeysContext.Provider
       value={{
         attachEventListeners: (element) => {
-          element?.addEventListener("keydown", keydownHandler);
+          element?.addEventListener("keydown", keydownHandler as EventListener);
         },
         removeEventListeners: (element) => {
-          element?.removeEventListener("keydown", keydownHandler);
+          element?.removeEventListener("keydown", keydownHandler as EventListener);
         },
       }}
     >

@@ -92,7 +92,7 @@ export const expectedTestRouterInputParsedNode: ObjectNode = {
 export const testQueryExpectedParseResult: ParsedProcedure = {
   nodeType: "procedure",
   node: expectedTestRouterInputParsedNode,
-  inputSchema: zodToJsonSchema(parseTestRouterInputSchema),
+  inputSchema: zodToJsonSchema(parseTestRouterInputSchema as any, { target: "jsonSchema7" }),
   procedureType: "query",
   pathFromRootRouter: ["testQuery"],
   extraData: {
@@ -103,7 +103,7 @@ export const testQueryExpectedParseResult: ParsedProcedure = {
 export const testMutationExpectedParseResult: ParsedProcedure = {
   nodeType: "procedure",
   node: expectedTestRouterInputParsedNode,
-  inputSchema: zodToJsonSchema(parseTestRouterInputSchema),
+  inputSchema: zodToJsonSchema(parseTestRouterInputSchema as any, { target: "jsonSchema7" }),
   procedureType: "mutation",
   pathFromRootRouter: ["testMutation"],
   extraData: {

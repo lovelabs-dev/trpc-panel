@@ -1,3 +1,4 @@
+import { zodToJsonSchema } from "zod-to-json-schema";
 import { ParsedRouter, parseRouterWithOptions } from "@src/parse/parseRouter";
 import {
   expectedTestRouterInputParsedNode,
@@ -5,7 +6,6 @@ import {
   parseTestRouterInputSchema,
   testTrpcInstance,
 } from "@src/parse/__tests__/utils/router";
-import { zodToJsonSchema } from "zod-to-json-schema";
 
 describe("Parse TRPC Router", () => {
   it("should parse the test router", () => {
@@ -16,7 +16,7 @@ describe("Parse TRPC Router", () => {
         testQuery: {
           nodeType: "procedure",
           node: expectedTestRouterInputParsedNode,
-          inputSchema: zodToJsonSchema(parseTestRouterInputSchema),
+          inputSchema: zodToJsonSchema(parseTestRouterInputSchema as any, { target: "jsonSchema7" }),
           procedureType: "query",
           pathFromRootRouter: ["testQuery"],
           extraData: {
@@ -26,7 +26,7 @@ describe("Parse TRPC Router", () => {
         testMutation: {
           nodeType: "procedure",
           node: expectedTestRouterInputParsedNode,
-          inputSchema: zodToJsonSchema(parseTestRouterInputSchema),
+          inputSchema: zodToJsonSchema(parseTestRouterInputSchema as any, { target: "jsonSchema7" }),
           procedureType: "mutation",
           pathFromRootRouter: ["testMutation"],
            extraData: {
@@ -51,7 +51,7 @@ describe("Parse TRPC Router", () => {
             testQuery: {
               nodeType: "procedure",
               node: expectedTestRouterInputParsedNode,
-              inputSchema: zodToJsonSchema(parseTestRouterInputSchema),
+              inputSchema: zodToJsonSchema(parseTestRouterInputSchema as any, { target: "jsonSchema7" }),
               procedureType: "query",
               pathFromRootRouter: ["nestedRouter", "testQuery"],
                extraData: {
@@ -61,7 +61,7 @@ describe("Parse TRPC Router", () => {
             testMutation: {
               nodeType: "procedure",
               node: expectedTestRouterInputParsedNode,
-              inputSchema: zodToJsonSchema(parseTestRouterInputSchema),
+              inputSchema: zodToJsonSchema(parseTestRouterInputSchema as any, { target: "jsonSchema7" }),
               procedureType: "mutation",
               pathFromRootRouter: ["nestedRouter", "testMutation"],
                extraData: {

@@ -59,7 +59,7 @@ describe("Parse TRPC Procedure", () => {
       })
     const expected: ParsedProcedure = {
       nodeType: 'procedure',
-      inputSchema: zodToJsonSchema(inputSchema),
+      inputSchema: zodToJsonSchema(inputSchema as any, { target: "jsonSchema7" }),
       pathFromRootRouter: ['testQuery'],
       procedureType: 'query',
       extraData: {

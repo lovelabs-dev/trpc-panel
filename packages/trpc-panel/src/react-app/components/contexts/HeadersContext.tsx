@@ -21,7 +21,7 @@ export const HeadersContext = createContext<HeadersContextType | null>(null);
 const headersLocalStorageKey = "headers";
 
 // necessary for SSR in the dev app
-const storage = typeof window !== 'undefined'? localStorage: {getItem: (v: string)=>null, setItem: (s: string)=>{}, removeItem: (v: string)=>{}};
+const storage = typeof window !== 'undefined'? localStorage: {getItem: (_: string)=>null, setItem: (_: string)=>{}, removeItem: (_: string)=>{}};
 
 const storedHeaders = storage.getItem(headersLocalStorageKey);
 

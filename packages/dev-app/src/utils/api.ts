@@ -18,6 +18,8 @@ const getBaseUrl = () => {
 };
 
 /** A set of type-safe react-query hooks for your tRPC API. */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export const api = createTRPCNext<AppRouter>({
   config() {
     return {
@@ -25,13 +27,6 @@ export const api = createTRPCNext<AppRouter>({
        * Transformer used for data de-serialization from the server.
        *
        * @see https://trpc.io/docs/data-transformers
-       */
-      transformer: superjson,
-
-      /**
-       * Links used to determine request flow from client to server.
-       *
-       * @see https://trpc.io/docs/links
        */
       links: [
         loggerLink({
@@ -41,6 +36,7 @@ export const api = createTRPCNext<AppRouter>({
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
+          transformer: superjson,
         }),
       ],
     };

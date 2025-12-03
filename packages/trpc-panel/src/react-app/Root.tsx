@@ -58,25 +58,25 @@ function ClientProviders({
 }) {
   const headers = useHeaders();
   const [trpcClient] = useState(() =>
+    // @ts-ignore
     trpc.createClient({
       links: [
         httpBatchLink({
           url: options.url,
           headers: headers.getHeaders,
+          transformer: (options.transformer === "superjson" ? superjson : undefined) as any,
         }),
       ],
-      transformer: (() => {
-        if (options.transformer === "superjson") return superjson;
-        return undefined;
-      })(),
     })
   );
   const [queryClient] = useState(() => new QueryClient());
 
+  // @ts-ignore
+  const TrpcProvider = trpc.Provider;
   return (
-    <trpc.Provider queryClient={queryClient} client={trpcClient}>
+    <TrpcProvider queryClient={queryClient} client={trpcClient}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    </trpc.Provider>
+    </TrpcProvider>
   );
 }
 

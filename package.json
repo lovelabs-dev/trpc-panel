@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "test:panel": "yarn && npx nx test --project trpc-panel",
-    "build:panel": "yarn && npx nx build --project trpc-panel",
-    "build:test-app": "yarn && npx nx build --project test-trpc-panel",
-    "build:docs": "yarn && npx nx build --project docs",
+    "test:panel": "bun install && bun x nx test --project trpc-panel",
+    "build:panel": "bun install && bun x nx build --project trpc-panel",
+    "build:test-app": "bun install && bun x nx build --project test-trpc-panel",
+    "build:docs": "bun install && bun x nx build --project docs",
     "cpy:readme": "cp README.MD packages/trpc-panel/README.md",
-    "start:test-app": "node ./packages/test-app/lib/server.js",
-    "start:docs": "cd packages/docs && yarn serve"
+    "start:test-app": "bun ./packages/test-app/lib/server.js",
+    "start:docs": "cd packages/docs && bun x docusaurus serve"
   },
   "private": true,
   "devDependencies": {

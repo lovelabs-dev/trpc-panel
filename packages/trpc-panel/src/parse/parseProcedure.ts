@@ -65,9 +65,10 @@ function nodeAndInputSchemaFromInputs(
   if (!inputs.length) {
     return {
       parseInputResult: "success",
-      schema: zodToJsonSchema(emptyZodObject, {
+      schema: zodToJsonSchema(emptyZodObject as any, {
         errorMessages: true,
         $refStrategy: "none",
+        target: "jsonSchema7"
       }),
       node: inputParserMap["zod"](emptyZodObject, {
         path: [],
@@ -90,6 +91,7 @@ function nodeAndInputSchemaFromInputs(
     schema: zodToJsonSchema(input as any, {
       errorMessages: true,
       $refStrategy: "none",
+      target: "jsonSchema7"
     }), //
     node: zodSelectorFunction((input as any)._def, {
       path: [],
@@ -105,7 +107,7 @@ export function parseProcedure(
   options: TrpcPanelExtraOptions
 ): ParsedProcedure | null {
   const { _def } = procedure;
-  const { inputs } = _def;
+  const inputs = _def.inputs ?? (_def.input ? [_def.input] : []);
   const parseExtraData: ProcedureExtraData = {
     parameterDescriptions: {},
   };
